@@ -1,8 +1,8 @@
-#include <OneWire.h>
 #include <DallasTemperature.h>
 
 // Data wire is conntec to the Arduino digital pin 4
 #define ONE_WIRE_BUS 2
+
 
 // Setup a oneWire instance to communicate with any OneWire devices
 OneWire oneWire(ONE_WIRE_BUS);
@@ -18,8 +18,8 @@ float duration, distance;
 void setup(){
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  sensors.begin();
   Serial.begin(9600);
+  sensors.begin();
 }
 
 void loop(){
@@ -28,7 +28,7 @@ void loop(){
   temp_adc_val = analogRead(lm35_pin);  /* Read Temperature */
   temp_val = (temp_adc_val * 4.88);      /* Convert adc value to equivalent voltage */
   temp_val = (temp_val/10);  /* LM35 gives output of 10mv/°C */
-  Serial.print("Temperature = ");
+  Serial.print("Ambient Temperature = ");
   Serial.print(temp_val);
   Serial.print(" Degree Celsius\n");
   digitalWrite(trigPin, LOW);
@@ -45,11 +45,13 @@ void loop(){
   sensors.requestTemperatures();
   float tempC = sensors.getTempCByIndex(0);
 
-  Serial.print("Temperature: ");
+  Serial.print("Water Temperature; ");
   Serial.print(tempC);
   Serial.println(" °C");
 
   delay(10000);
 }
+
+
 
 
